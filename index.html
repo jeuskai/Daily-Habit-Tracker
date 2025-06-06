@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Habit Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <h1>Daily Habit Tracker</h1>
+  <div class="date-display">
+    <h2 id="todayDate"></h2>
+  </div>
+
+  <h3 class="label">Memorable Things of the Day:</h3>
+  <textarea id="memorable" placeholder="Enter the memorbale things of the day"></textarea>
+
+  <div class="checkbox-group">
+    <h3>Positive Activities</h3>
+    <label><input type="checkbox" class="positive" /> Exercise</label>
+    <label><input type="checkbox" class="positive" /> Drinking Water</label>
+    <label><input type="checkbox" class="positive" /> Prayer</label>
+    <label><input type="checkbox" class="positive" /> Skills</label>
+    <label><input type="checkbox" class="positive" /> Language</label>
+    <label><input type="checkbox" class="positive" /> Movie/Series</label>
+    <label><input type="checkbox" class="positive" /> University</label>
+    <label><input type="checkbox" class="positive" /> Tuition</label>
+    <label><input type="checkbox" class="positive" /> Adda/Texting</label>
+    <label><input type="checkbox" class="positive" /> Hangout</label>
+  </div>
+
+  <div class="checkbox-group">
+    <h3>Negative Activities</h3>
+    <label><input type="checkbox" class="negative" /> Smoking</label>
+    <label><input type="checkbox" class="negative" /> 4hr+ Screentime</label>
+    <label><input type="checkbox" class="negative" /> Big Sin</label>
+  </div>
+
+  <button onclick="calculateGoodness()">Calculate Day Goodness</button>
+  <div id="goodnessResult"></div>
+
+  <script>
+    // Display today's date
+    const today = new Date();
+    document.getElementById("todayDate").textContent = today.toDateString();
+
+    function calculateGoodness() {
+      const positives = document.querySelectorAll(".positive:checked").length;
+      const negatives = document.querySelectorAll(".negative:checked").length;
+      const score = (positives - negatives) / 10;
+      const percentage = Math.max(0, Math.min(100, Math.round(score * 100)));
+
+      let resultText = `Goodness Score: ${percentage}% - `;
+      if (percentage === 100) {
+        resultText += "Best Day! 🎉";
+      } else if (percentage >= 50) {
+        resultText += "Mid Day 😊";
+      } else {
+        resultText += "Worst Day 😞";
+      }
+
+      document.getElementById("goodnessResult").textContent = resultText;
+    }
+  </script>
+</body>
+</html>
